@@ -9,11 +9,13 @@ app.set('view engine', 'ejs');
 app.get("/:nome/:langue",function(req,res){
     var nome = req.params.nome;
     var langue = req.params.langue;
+    var exibirmsg = false;
     res.render("index",{
         nome: nome,
         langue: langue,
         empresa: "BlackBoard",
-        inscritos: 8000
+        inscritos: 8000,
+        msg:exibirmsg
     });
 });
 
