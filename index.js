@@ -6,8 +6,15 @@ const app = express(); // Iniciando o express
 app.set('view engine', 'ejs');
 
 
-app.get("/",function(req,res){
-    res.render("index");
+app.get("/:nome/:langue",function(req,res){
+    var nome = req.params.nome;
+    var langue = req.params.langue;
+    res.render("index",{
+        nome: nome,
+        langue: langue,
+        empresa: "BlackBoard",
+        inscritos: 8000
+    });
 });
 
 app.get("/blog/:artigo?",function(req, res){
