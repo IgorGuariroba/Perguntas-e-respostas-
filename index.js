@@ -12,6 +12,10 @@ app.get("/",function(req,res){
     res.render("index");
 });
 
+app.get("/pergunta",function(req,res){
+    res.render("pergunta");
+});
+
 app.listen(80,function(erro){
     if(erro){
         console.log("Ocorreu um erro!");
