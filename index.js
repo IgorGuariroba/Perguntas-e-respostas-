@@ -15,8 +15,6 @@ connection
         console.log(msgErro);
     })
 
-
-
 // Configurando ejs como redenrizador da pagina
 app.set('view engine', 'ejs');
 // Configurando o express para fazer uso de arquivos staticos
@@ -26,8 +24,14 @@ app.use(bodyParser.urlencoded({extended: false}))
 //Configurando o body-parser  o que nos permite trabalhar com json
 app.use(bodyParser.json())
 
+
+
 app.get("/",function(req,res){
-    res.render("index");
+    Pergunta.findAll({ raw: true}).then(perguntas => {
+        res.render("index",{
+            perguntas:perguntas
+        });
+    });
 });
 
 app.get("/pergunta",function(req,res){
