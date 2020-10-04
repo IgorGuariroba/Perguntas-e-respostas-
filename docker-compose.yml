@@ -1,10 +1,56 @@
-version: "3" ## especifica a versão do docker-compose file
+version: "3.7"
+services:
 
-services: ## Define um serviço
-  questao: ## nome do serviço
-    build: . ## localização do dockerfile
-    command: npm start ## comando a executar
+  questao:
+    build:
+      context: ./
+      dockerfile: Dockerfile
     ports:
-      - "8080:80" ## redirecionamento de porta quando chegar alguma requisição na porta 3000 chama o container na porta 3000
-    volumes:
+      - "80:80"
+    networks:
+      - mysql-compose-network
+    depends_on:
+      - mysql_db_container
+    volumes: 
       - .:/usr/app ## monitoro a pasta atual . e envio as alterações para /usr/app
+    command: npm start
+    
+    
+  mysql_db_container:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pergunta
+      MYSQL_USER: igor
+      MYSQL_PASSWORD: 123
+      MYSQL_MAX_ALLOWED_PACKET: 1024M
+      MYSQL_INNODB_BUFFER_POOL_SIZE: 1G
+      MYSQL_INNODB_LOG_FILE_SIZE: 256M
+      MYSQL_INNODB_LOG_BUFFER_SIZE: 256M
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_db_data_container:/var/lib/mysql
+    networks:
+      - mysql-compose-network
+
+
+  adminer:
+    image: adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql_db_container
+    ports:
+      - 8080:8080
+    networks:
+      - mysql-compose-network
+    depends_on:
+      - mysql_db_container
+
+
+networks:
+  frontend:
+  mysql-compose-network:
+
+volumes: 
+  mysql_db_data_container:

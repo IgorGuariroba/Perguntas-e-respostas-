@@ -1,6 +1,6 @@
 ## Comando obrigatório
 ## Baixa a imagem do node com versão 14
-FROM node:14
+FROM node:14.11.0
 
 ## Define o local onde o app vai ficar no disco do container
 ## Pode ser o diretório que você quiser

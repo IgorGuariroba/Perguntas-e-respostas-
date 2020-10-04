@@ -1,6 +1,20 @@
 const express = require("express"); // Importando o express
 const app = express(); // Iniciando o express
 const bodyParser = require("body-parser");//importando o bodyParser
+const connection = require('./database/database'); //
+//Database 
+
+// promise javascript
+connection
+    .authenticate()
+    .then(()=> {
+        console.log("conexão realizada com sucesso")
+    })
+
+    .catch((msgErro) => {
+        console.log(msgErro);
+    })
+
 
 
 // Configurando ejs como redenrizador da pagina
