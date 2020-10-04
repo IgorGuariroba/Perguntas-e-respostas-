@@ -15,3 +15,8 @@ const Pergunta = connection.define('perguntas',{
 
 // Criar a tabela caso ela não exista
 Pergunta.sync({force: false}).then(() => {});
+
+
+//exportar 
+
+module.exports = Pergunta;

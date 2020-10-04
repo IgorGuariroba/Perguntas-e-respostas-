@@ -2,7 +2,7 @@ const express = require("express"); // Importando o express
 const app = express(); // Iniciando o express
 const bodyParser = require("body-parser");//importando o bodyParser
 const connection = require('./database/database'); //
-const perguntaModel = require("./database/Pergunta");
+const Pergunta = require("./database/Pergunta");
 
 // promise javascript
 connection
@@ -37,8 +37,15 @@ app.get("/pergunta",function(req,res){
 app.post("/salvarPergunta",function(req,res){
    var titulo = req.body.titulo;
    var descricao = req.body.descricao;
+   //salvar os dados na tabela
+   Pergunta.create({
+        titulo: titulo,
+        descricao: descricao
+   }).then(() => {
+       res.redirect("/");
+   });
 
-    res.send("Formulario recebido titulo:"+titulo+"  descricao: "+descricao+"");
+    //res.send("Formulario recebido titulo:"+titulo+"  descricao: "+descricao+"");
 });
 
 app.listen(80,function(erro){
