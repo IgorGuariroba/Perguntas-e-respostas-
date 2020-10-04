@@ -2,7 +2,7 @@ const express = require("express"); // Importando o express
 const app = express(); // Iniciando o express
 const bodyParser = require("body-parser");//importando o bodyParser
 const connection = require('./database/database'); //
-//Database 
+const perguntaModel = require("./database/Pergunta");
 
 // promise javascript
 connection
