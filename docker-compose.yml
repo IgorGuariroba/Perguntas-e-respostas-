@@ -21,7 +21,6 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: pergunta
       MYSQL_USER: igor
       MYSQL_PASSWORD: 123
       MYSQL_MAX_ALLOWED_PACKET: 1024M
