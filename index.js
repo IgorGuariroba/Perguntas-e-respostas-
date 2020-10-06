@@ -3,6 +3,7 @@ const app = express(); // Iniciando o express
 const bodyParser = require("body-parser");//importando o bodyParser
 const connection = require('./database/database'); //
 const Pergunta = require("./database/Pergunta");
+const Resposta = require("./database/Resposta");
 
 // promise javascript
 connection
