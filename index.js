@@ -36,8 +36,8 @@ app.get("/",function(req,res){
     });
 });
 
-app.get("/pergunta",function(req,res){
-    res.render("pergunta");
+app.get("/perguntar",function(req,res){
+    res.render("perguntar");
 });
 
 app.post("/salvarPergunta",function(req,res){
@@ -53,6 +53,19 @@ app.post("/salvarPergunta",function(req,res){
 
     //res.send("Formulario recebido titulo:"+titulo+"  descricao: "+descricao+"");
 });
+
+app.get("/pergunta/:id",(req,res) =>{
+    var id = req.params.id;
+    Pergunta.findOne({
+        where:{id: id}
+    }).then(pergunta => {
+        if(pergunta != undefined){
+            res.render("pergunta");
+        } else {
+            res.redirect("/");
+        }
+    })
+})
 
 app.listen(80,function(erro){
     if(erro){
