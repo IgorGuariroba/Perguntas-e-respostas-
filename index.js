@@ -42,8 +42,9 @@ app.get("/perguntar",function(req,res){
 });
 
 app.post("/salvarPergunta",function(req,res){
-   var titulo = req.body.titulo;
+   var titulo    = req.body.titulo;
    var descricao = req.body.descricao;
+
    //salvar os dados na tabela
    Pergunta.create({
         titulo: titulo,
@@ -51,29 +52,49 @@ app.post("/salvarPergunta",function(req,res){
    }).then(() => {
        res.redirect("/");
    });
-
-    //res.send("Formulario recebido titulo:"+titulo+"  descricao: "+descricao+"");
 });
 
 app.get("/pergunta/:id",(req,res) =>{
+
     var id = req.params.id;
+
     Pergunta.findOne({
         where:{id: id}
     }).then(pergunta => {
-        if(pergunta != undefined){
-            res.render("pergunta",{
-                pergunta: pergunta
+        if(pergunta != undefined){ //pergunta encontrada
+
+            Resposta.findAll({
+                where: {perguntaId: pergunta.id},
+                order:[
+                     ['id','DESC']
+                ]
+
+            }).then(respostas =>{
+                res.render("pergunta",{
+                    pergunta: pergunta,
+                    respostas: respostas
+                });
             });
         } else {
             res.redirect("/");
         }
-    })
-})
+    });
+});
 
-app.listen(80,function(erro){
-    if(erro){
-        console.log("Ocorreu um erro!");
-    }else{
-        console.log("Servidor iniciado com sucesso!");
-    }
-})
+app.post("/salvarResposta",(req,res) => {
+    var corpo = req.body.corpo;
+    var perguntaId = req.body.pergunta;
+    //salvar os dados na tabela
+    Resposta.create({
+         corpo: corpo,
+         perguntaId: perguntaId
+    }).then(() => {
+        res.redirect("/pergunta/"+perguntaId)
+    }).catch((e) => {
+        console.log(e);
+    });
+   // res.send("Formulario recebido titulo:"+corpo+"  descricao: "+perguntaID+"");
+ });
+
+app.listen(80,()=>{console.log("App rodando")});
+  
