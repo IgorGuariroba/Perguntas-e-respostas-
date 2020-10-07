@@ -1,2 +1,3 @@
-# Perguntas-e-respostas-
-Uma aplicação de pergunta e reposta como o antigo yahoo em node e docker
+<h1 align=center>
+<img <img alt="Blackboard" title="Blackboard" src="./assets/Pergunte.png" />
+</h1>
